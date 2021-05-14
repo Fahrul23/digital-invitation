@@ -1,11 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import LandingPage from './LandingPage';
+import Routes from './Routes';
+
 
 function App() {
   return (
     <div className="App">
-        <LandingPage />
+        <Routes/>
     </div>
   );
 }
