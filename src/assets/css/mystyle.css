@@ -1,0 +1,9 @@
+#shape-top{
+    background-image: url(../img/shape/b-shapeup.png);
+}
+.waveWrapperInner .bgTop .waveMiddle{
+    background-image: url(../img/shape/b-shapemiddle.png);
+}
+.waveWrapperInner .bgTop .waveBottom{
+    background-image: url(../img/shape/b-shapemiddle.png);
+}

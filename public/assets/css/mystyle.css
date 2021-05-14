@@ -1,0 +1,9 @@
+.waveWrapperInner .bgTop .waveTop{
+    background-image: url(../img/app-landing/shape/b-shapeup.png);
+}
+.waveWrapperInner .bgTop .waveMiddle{
+    background-image: url(../img/app-landing/shape/b-shapemiddle.png);
+}
+.waveWrapperInner .bgTop .waveBottom{
+    background-image: url(../img/app-landing/shape/b-shapemiddle.png);
+}
