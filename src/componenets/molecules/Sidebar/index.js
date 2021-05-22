@@ -8,43 +8,43 @@ function Sidebar(props) {
                 <div class="deznav-scroll">
                     <ul class="metismenu" id="menu">
                         <li>
-                            <Link to="/admin" class="has-arrow ai-icon" aria-expanded="false">
+                            <Link to="/admin/dashboard" class="has-arrow ai-icon" aria-expanded="false">
                                 <i class="flaticon-381-networking text-white"></i>
                                 <span class="nav-text text-white">Dashboard</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/pasangan" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-notepad text-white"></i>
+                            <Link to="/admin/pasangan" class="ai-icon" aria-expanded="false">
+                                <i class="flaticon-381-user-9 text-white"></i>
                                 <span class="nav-text text-white">Pasangan</span>
                             </Link>
                         </li>
+                        
                         <li>
-                            <Link to="/tamuundangan" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-notepad text-white"></i>
+                            <Link to="/admin/acara" class="ai-icon" aria-expanded="false">
+                                <i class="flaticon-381-calendar-1 text-white"></i>
+                                <span class="nav-text text-white">Acara</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/galeri" class="ai-icon" aria-expanded="false">
+                                <i class="flaticon-381-photo-camera text-white"></i>
+                                <span class="nav-text text-white">Galeri Foto</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/admin/tamuundangan" class="ai-icon" aria-expanded="false">
+                                <i class="flaticon-381-user-7 text-white"></i>
                                 <span class="nav-text text-white">Tamu Undangan</span>
                             </Link>
                         </li>
-                        <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-notepad text-white"></i>
-                                <span class="nav-text text-white">Widget</span>
-                            </a>
-                        </li>
-                        <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
+                        <li>
+                            <Link to="/admin/perjalanancinta" class="ai-icon" aria-expanded="false">
                                 <i class="flaticon-381-heart text-white"></i>
-                                <span class="nav-text text-white">Widget</span>
-                            </a>
+                                <span class="nav-text text-white">Perjalanan Cinta</span>
+                            </Link>
                         </li>
-                        <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-notepad text-white"></i>
-                                <span class="nav-text text-white">Widget</span>
-                            </a>
-                        </li>
-                        <li><a href="widget-basic.html" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-heart text-white"></i>
-                                <span class="nav-text text-white">Widget</span>
-                            </a>
-                        </li>
+                       
                     
                     </ul>
                 

@@ -1,13 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Footer, Header, Sidebar } from '../componenets';
 
 function Dashboard(props) {
+
+    const [on, setOn] = useState(false);
+
+    function toogleSidebar(){
+        setOn(!on);
+    }
+    const navaction = on == true ? "menu-toggle" : null;
+  
     return (
         <>
-
-                            
+            <div id="main-wrapper" class={`${navaction}`}>
+            
                 {/* Header */}
-                    <Header />
+                    <Header toogleSidebar={toogleSidebar}/>
 
                 {/* Sidebar */}
                     <Sidebar/>
@@ -98,7 +106,7 @@ function Dashboard(props) {
                 </div>
                 {/* Footer */}
                 <Footer/>
-
+            </div>
         </>
     );
 }

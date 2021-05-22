@@ -37,7 +37,7 @@ function Login(props) {
                                                 <a href="forgot-password-12.html">Forgot Password</a>
                                             </div>
                                             <div className="form-group mb-0">
-                                                <Link className="btn-md btn-theme btn-block" to="/admin">Login</Link>
+                                                <Link className="btn-md btn-theme btn-block" to="/admin/dashboard">Login</Link>
                                             </div>
                                             
                                         </form>

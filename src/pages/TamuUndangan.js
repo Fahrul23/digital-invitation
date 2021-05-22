@@ -6,7 +6,7 @@ function TamuUndangan(props) {
     
     const [on, setOn] = useState(false)
 
-    function sidebaraction(){
+    function toogleSidebar(){
         setOn(!on);
     }
     const navaction = on == true ? "menu-toggle" : null;
@@ -18,7 +18,7 @@ function TamuUndangan(props) {
             <div id="main-wrapper" class={`${navaction} show`}>
                             
                 {/* Header */}
-                    <Header />
+                    <Header toogleSidebar={toogleSidebar}/>
 
                 {/* Sidebar */}
                     <Sidebar />
@@ -40,7 +40,8 @@ function TamuUndangan(props) {
                             </div>
                         </div>
                         <div class="form-head d-flex mb-3  mb-lg-5   align-items-start">
-                            <a href="javascript:void(0)" class="btn btn-success" data-toggle="modal" data-target="#addDoctorModal">+New Data</a>
+                            <a href="javascript:void(0)" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#addTamuUndangan"><span class="btn-icon-left text-success"><i class="fa fa-plus color-success"></i>
+                            </span>Tambah Tamu Undangan</a>
                             <div class="input-group search-area ml-auto d-inline-flex">
                                 <input type="text" class="form-control" placeholder="Search here" />
                                 <div class="input-group-append">
@@ -61,28 +62,26 @@ function TamuUndangan(props) {
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Exam Toppers</h4>
+                                        <h4 class="card-title">Tamu Undangan</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-responsive-md">
                                                 <thead>
                                                     <tr>
-                                                        <th><strong>ROLL NO.</strong></th>
-                                                        <th><strong>NAME</strong></th>
-                                                        <th><strong>Email</strong></th>
-                                                        <th><strong>Date</strong></th>
-                                                        <th><strong>Status</strong></th>
+                                                        <th><strong>No</strong></th>
+                                                        <th><strong>NAMA</strong></th>
+                                                        <th><strong>HUBUNGAN</strong></th>
+                                                        <th><strong>PESAN SINGKAT</strong></th>
                                                         <th><strong>Action</strong></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td><strong>542</strong></td>
+                                                        <td><strong>1</strong></td>
                                                         <td><div class="d-flex align-items-center"><span class="w-space-no">Dr. Jackson</span></div></td>
-                                                        <td>example@example.com	</td>
-                                                        <td>01 August 2020</td>
-                                                        <td><div class="d-flex align-items-center"><i class="fa fa-circle text-success mr-1"></i> Successful</div></td>
+                                                        <td>Sodara</td>
+                                                        <td>Tolong Datang yah</td>
                                                         <td>
                                                             <div class="d-flex">
                                                                 <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
@@ -99,34 +98,40 @@ function TamuUndangan(props) {
                             </div>
                         </div>
 
-                        <div class="modal fade" id="addDoctorModal">
+                        <div class="modal fade" id="addTamuUndangan">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Add Doctor</h5>
+                                        <h5 class="modal-title">Tambah Tamu Undangan</h5>
                                         <button type="button" class="close" data-dismiss="modal"><span>×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <form>
                                             <div class="form-group">
-                                                <label class="text-black font-w500">Doctor Name</label>
-                                                <input type="text" class="form-control" />
+                                                <label class="text-black font-w500">Nama</label>
+                                                <input type="text" class="form-control" placeholder="Nama" />
                                             </div>
                                             <div class="form-group">
-                                                <label class="text-black font-w500">Doctor ID</label>
-                                                <input type="text" class="form-control" />
+                                                <label class="text-black font-w500">Hubungan</label>
+                                                <select class="form-control default-select form-control-lg">
+                                                    <option>-- Pilih --</option>
+                                                    <option>Saudara</option>
+                                                    <option>Teman SD</option>
+                                                    <option>Teman SMP</option>
+                                                    <option>Teman SMA</option>
+                                                    <option>Teman Kuliah</option>
+                                                    <option>Teman Kerja</option>
+                                                    <option>Lainnya</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label class="text-black font-w500">Specialist</label>
-                                                <input type="text" class="form-control" />
+                                                <label class="text-black font-w500">Pesan Singkat (optional)</label>
+                                                <textarea class="form-control" placeholder="Jangan Lupa datang yh ..."></textarea>
+									
                                             </div>
                                             <div class="form-group">
-                                                <label class="text-black font-w500">Appointment Date</label>
-                                                <input type="date" class="form-control" />
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="button" class="btn btn-primary">CREATE</button>
+                                                <button type="button" class="btn btn-primary">Tambah</button>
                                             </div>
                                         </form>
                                     </div>

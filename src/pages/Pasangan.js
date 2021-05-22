@@ -7,7 +7,7 @@ function Pasangan(props) {
     
     const [on, setOn] = useState(false)
 
-    function sidebaraction(){
+    function toogleSidebar(){
         setOn(!on);
     }
     const navaction = on == true ? "menu-toggle" : null;
@@ -19,7 +19,7 @@ function Pasangan(props) {
             <div id="main-wrapper" class={`${navaction} show`}>
                             
                 {/* Header */}
-                    <Header />
+                    <Header toogleSidebar={toogleSidebar} />
 
                 {/* Sidebar */}
                     <Sidebar />
@@ -29,8 +29,7 @@ function Pasangan(props) {
                         <div class="row page-titles mx-0">
                             <div class="col-sm-6 p-md-0">
                                 <div class="welcome-text">
-                                <button onClick={()=>sidebaraction()}><h1>Humburhger</h1></button>
-            
+                              
                                     <h4>Hi, welcome back!</h4>
                                     <span>Element</span>
                                 </div>

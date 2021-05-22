@@ -3,6 +3,7 @@ import logo from '../../../assets/img/logo/logo.png';
 import logotext from '../../../assets/img/logo/logo-text.png';
 
 function Header(props) {
+    const {toogleSidebar} = props;
     return (
         <div>
              
@@ -13,8 +14,8 @@ function Header(props) {
                     <img className="brand-title" src={logotext} alt="" />
                 </a>
 
-                <div className="nav-control">
-                    <div className="hamburger">
+                <div className="nav-control" >
+                    <div className="hamburger" onClick={()=>toogleSidebar()}>
                         <span className="line"></span><span className="line"></span><span className="line"></span>
                     </div>
                 </div>

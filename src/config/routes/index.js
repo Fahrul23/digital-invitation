@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch,Route} from "react-router-dom";
-import { Dashboard, LandingPage, Login, Pasangan, Register, TamuUndangan } from '../../pages';
+import { Acara, Dashboard, Galeri, LandingPage, Login, Pasangan, PerjalananCinta, Register, TamuUndangan } from '../../pages';
 
 function Routes(props) {
     return (
@@ -15,16 +15,26 @@ function Routes(props) {
                 <Route path="/register">
                     <Register />
                 </Route>
-                <Route path="/admin">
+                <Route path="/admin/dashboard">
                     <Dashboard />
                 </Route>
-                <Route path="/pasangan">
+                <Route path="/admin/pasangan">
                     <Pasangan />
                 </Route>
-                
-                <Route path="/tamuundangan">
+                <Route path="/admin/tamuundangan">
                     <TamuUndangan />
                 </Route>
+                <Route path="/admin/acara">
+                    <Acara/>
+                </Route>
+                
+                <Route path="/admin/galeri">
+                    <Galeri/>
+                </Route>
+                <Route path="/admin/perjalanancinta">
+                    <PerjalananCinta/>
+                </Route>
+                
             </Switch>
         </div>
     );
