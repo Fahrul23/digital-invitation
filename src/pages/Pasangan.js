@@ -1,11 +1,30 @@
 import React,{useState} from 'react';
 import { Footer, Header, Sidebar } from '../componenets';
 import avatar from '../assets/img/avatar/profile.png';
+import { useForm } from 'react-hook-form';
 
 
 function Pasangan(props) {
     
     const [on, setOn] = useState(false)
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }, 
+    } = useForm({
+        defaultValues :{
+            NamaLengkap: null,
+            NamaPanggila: null,
+            NamaAyah:null,
+            NamaIbu:null,
+            Alamat:null,
+            AkunInstagram:null
+        }
+    });
+
+    const onSubmit =(data)=>{
+        console.log(data)
+    }
 
     function toogleSidebar(){
         setOn(!on);
@@ -63,7 +82,22 @@ function Pasangan(props) {
                                                     
                                                     <div class="form-group col-md-12 mt-3">
                                                         <label>Nama Lengkap</label>
-                                                        <input type="text" class="form-control" placeholder="Nama Lengkap" />
+                                                        <input 
+                                                            type="text" 
+                                                            class="form-control" 
+                                                            placeholder="Nama Lengkap" 
+                                                            autoComplete="off"
+                                                            {...register('NamaLengkap', {
+                                                                required: "nama lengkap tidak boleh kosong",
+                                                                minLength: {
+                                                                  value: 3,
+                                                                  message: "nama lengkap minimal 3 karakter"
+                                                                },
+                                                                })
+                                                            }
+                                                        />
+                                                        {errors.NamaLengkap &&  <small className="text-danger mt-2" >{errors.NamaLengkap.message}</small>}
+                               
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Nama Panggilan</label>
@@ -143,7 +177,7 @@ function Pasangan(props) {
                                 <div className="col-md-12 p-md-0">
                                     <div className="welcome-text d-flex">
                                         <div className="m-auto">
-                                            <button type="submit" className="btn mr-2 btn-primary" >Simpan</button>
+                                            <button onClick={handleSubmit(onSubmit)} className="btn mr-2 btn-primary" >Simpan</button>
                                             <button type="submit" className="btn btn-light">Batal</button>
                                         </div>       
                                     </div>
