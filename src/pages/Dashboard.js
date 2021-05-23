@@ -1,7 +1,11 @@
 import React,{useState} from 'react';
+import { useSelector } from 'react-redux';
 import { Footer, Header, Sidebar } from '../componenets';
 
 function Dashboard(props) {
+
+    const stateGlobal = useSelector(state => state);
+    console.log(stateGlobal);
 
     const [on, setOn] = useState(false);
 
