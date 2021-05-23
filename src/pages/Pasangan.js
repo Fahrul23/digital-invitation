@@ -2,11 +2,11 @@ import React,{useState} from 'react';
 import { Footer, Header, Sidebar } from '../componenets';
 import avatar from '../assets/img/avatar/profile.png';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function Pasangan(props) {
     
-    const [on, setOn] = useState(false)
     const {
         register,
         handleSubmit,
@@ -26,16 +26,21 @@ function Pasangan(props) {
         console.log(data)
     }
 
+    // Toogle Sidebar
+    const dispatch = useDispatch();
+
+    const {toogle} = useSelector(state => state.globalReducer);
+
     function toogleSidebar(){
-        setOn(!on);
+        dispatch({type:'UPDATE_TOOGLE'})
     }
-    const navaction = on == true ? "menu-toggle" : null;
+    const menutoogle = toogle == true ? "menu-toggle" : null;
   
 
     return (
 
         <>
-            <div id="main-wrapper" class={`${navaction} show`}>
+            <div id="main-wrapper" class={`${menutoogle} show`}>
                             
                 {/* Header */}
                     <Header toogleSidebar={toogleSidebar} />

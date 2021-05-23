@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../../assets/img/logo/logo.png';
 import logotext from '../../../assets/img/logo/logo-text.png';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header(props) {
+    const {name} = useSelector(state => state.profileReducer);
+    
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+            setTimeout(()=>{
+                 dispatch({type:'UPDATE_NAME'})
+            },3000)
+    },[])
+    
+
     const {toogleSidebar} = props;
     return (
         <div>
@@ -123,7 +136,7 @@ function Header(props) {
                                 <li class="nav-item dropdown header-profile">
                                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                         <div class="header-info">
-                                            <span>David Morse</span>
+                                            <span>{name}</span>
                                             <small>ADMIN</small>
                                         </div>
                                         <img src="assets/dashboard/images/profile/pic1.jpg" width="20" alt=""/>

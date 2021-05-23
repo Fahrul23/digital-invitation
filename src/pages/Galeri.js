@@ -1,18 +1,21 @@
 import React,{useState} from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import { Footer, Header, Sidebar } from '../componenets';
 
 function Galeri(props) {
 
-    const [on, setOn] = useState(false);
+    const dispatch = useDispatch();
+
+    const {toogle} = useSelector(state => state.globalReducer);
 
     function toogleSidebar(){
-        setOn(!on);
+        dispatch({type:'UPDATE_TOOGLE'})
     }
-    const navaction = on == true ? "menu-toggle" : null;
+    const menutoogle = toogle == true ? "menu-toggle" : null;
   
     return (
         <>
-            <div id="main-wrapper" class={`${navaction}`}>
+            <div id="main-wrapper" class={`${menutoogle}`}>
             
                 {/* Header */}
                     <Header toogleSidebar={toogleSidebar}/>

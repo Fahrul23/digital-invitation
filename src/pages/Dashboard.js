@@ -1,22 +1,22 @@
 import React,{useState} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Footer, Header, Sidebar } from '../componenets';
 
 function Dashboard(props) {
 
-    const stateGlobal = useSelector(state => state);
-    console.log(stateGlobal);
+    
+    const dispatch = useDispatch();
 
-    const [on, setOn] = useState(false);
+    const {toogle} = useSelector(state => state.globalReducer);
 
     function toogleSidebar(){
-        setOn(!on);
+        dispatch({type:'UPDATE_TOOGLE'})
     }
-    const navaction = on == true ? "menu-toggle" : null;
+    const menutoogle = toogle == true ? "menu-toggle" : null;
   
     return (
         <>
-            <div id="main-wrapper" class={`${navaction}`}>
+            <div id="main-wrapper" class={`${menutoogle}`}>
             
                 {/* Header */}
                     <Header toogleSidebar={toogleSidebar}/>

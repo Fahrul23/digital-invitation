@@ -3,26 +3,31 @@ import { Footer, Header, Sidebar } from '../componenets';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import "react-datepicker/dist/react-datepicker.css";
-
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function PerjalananCinta(props) {
     
-    const [on, setOn] = useState(false)
     const[dateFirst,setDateFirst] = useState(new Date());
     const[dateSecond,setDateSecond] = useState(new Date());
     const[dateThird,setDateThird] = useState(new Date());
     const[dateFourth,setDateFourth] = useState(new Date());
-    function toogleSidebar(){
-        setOn(!on);
-    }
-    const navaction = on == true ? "menu-toggle" : null;
-  
 
+    
+    // Toogle Sidebar
+    const dispatch = useDispatch();
+
+    const {toogle} = useSelector(state => state.globalReducer);
+
+    function toogleSidebar(){
+        dispatch({type:'UPDATE_TOOGLE'})
+    }
+    const menutoogle = toogle == true ? "menu-toggle" : null;
+  
     return (
 
         <>
-            <div id="main-wrapper" class={`${navaction} show`}>
+            <div id="main-wrapper" class={`${menutoogle} show`}>
                             
                 {/* Header */}
                     <Header toogleSidebar={toogleSidebar} />

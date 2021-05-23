@@ -1,12 +1,6 @@
-import { createStore } from "redux";
+import {createStore } from "redux";
 
-const initialState = {
-    name:'fahrul'
-}
-
-const reducer = (state = initialState,action) =>{
-    return state;
-}
+import reducer from './reducer/reducer';
 
 const store = createStore(reducer);
 
