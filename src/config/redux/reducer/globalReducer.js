@@ -1,6 +1,7 @@
 
 const initialState = {
-    toogle:false
+    toogle:false,
+    isInsert:false,
 }
 
 const globalReducer=(state=initialState,action)=>{
@@ -10,6 +11,13 @@ const globalReducer=(state=initialState,action)=>{
             toogle: !state.toogle
         }
     }
+    if(action.type === 'UPDATE_ISINSERT'){
+        return{
+            ...state,
+            isInsert:action.payload
+        }
+    }
+
     return state;
 }
 export default globalReducer;

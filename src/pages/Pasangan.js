@@ -1,19 +1,20 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Footer, Header, Sidebar } from '../componenets';
 import avatar from '../assets/img/avatar/profile.png';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-
+import Swal from 'sweetalert2';
 
 function Pasangan(props) {
     
-    const [dataPasangan, setDataPasangan] = useState([]);
     const [fotoPria, setFotoPria] = useState();    
     const [imgPreviewPria, setImgPreviewPria] = useState(null);    
+    const [dataImgPreviewPria, setDataImgPreviewPria] = useState(null);    
+    const [dataImgPreviewWanita, setDataImgPreviewWanita] = useState(null);    
     const [fotoWanita, setFotoWanita] = useState();    
     const [imgPreviewWanita, setImgPreviewWanita] = useState(null);    
-    
+    const [insertData, setInsertData] = useState(false); 
     
     // React-hook-Form
     const {
@@ -40,15 +41,57 @@ function Pasangan(props) {
         }
     });
 
+    const getDataPasangan = () =>{
+
+        const id = 1;
+        axios.get(`http://127.0.0.1:8000/api/pasangan/${id}`,{
+                headers:{
+                    'content-type' : 'multipart/form-data'
+                }
+        })
+        .then(res =>{
+            if(res){
+                const dataPria = res.data.data[0];
+                const dataWanita = res.data.data[1];
+                setValue("NamaLengkapPria", dataPria.nama_lengkap);
+                setValue("NamaPanggilanPria", dataPria.nama_panggilan);
+                setDataImgPreviewPria(dataPria.foto);
+                setValue("NamaAyahPria", dataPria.nama_ayah);
+                setValue("NamaIbuPria", dataPria.nama_ibu);
+                setValue("AlamatPria", dataPria.alamat);
+                setValue("AkunInstagramPria", dataPria.akun_instagram);
+                setValue("NamaLengkapWanita", dataWanita.nama_lengkap);
+                setValue("NamaPanggilanWanita", dataWanita.nama_panggilan);
+                setDataImgPreviewWanita(dataWanita.foto);
+                setValue("NamaAyahWanita", dataWanita.nama_ayah);
+                setValue("NamaIbuWanita", dataWanita.nama_ibu);
+                setValue("AlamatWanita", dataWanita.alamat);
+                setValue("AkunInstagramWanita", dataWanita.akun_instagram);
+                dispatch({type:'UPDATE_ISINSERT',payload:true});
+    
+            }
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Silahkan Isi Data Form dengan Benar',
+                icon: 'info',
+                focusConfirm: false,
+                confirmButtonText:
+                  '<i class="fa fa-thumbs-up"></i> Ok Siap!',
+                confirmButtonAriaLabel: 'Thumbs up, great!',
+                cancelButtonAriaLabel: 'Thumbs down'
+              })
+        })
+    }
+    
+    
     const changeFotoPria =(e) =>{
         const file = e.target.files[0]; 
         setImgPreviewPria(URL.createObjectURL(file))
         setFotoPria(file);
         
     }
-    const cek =() =>{
-        console.log(fotoPria);
-    }
+
     const changeFotoWanita =(e) =>{
         const file = e.target.files[0]; 
         setImgPreviewWanita(URL.createObjectURL(file))
@@ -58,64 +101,90 @@ function Pasangan(props) {
 
     const onSubmit = (data)=>{
 
-        // const dataform1 = new FormData();
-        // dataform1.append('title','title');
-        // dataform1.append('NamalengkapPria',data.NamaLengkapPria);
-        // dataform1.append('NamaPanggilanPria',data.NamaPanggilanPria);
-        // dataform1.append('FotoPria',fotoPria);
-        // dataform1.append('NamaAyahPria',data.NamaAyahPria);
-        // dataform1.append('NamaIbuPria',data.NamaIbuPria);
-        // dataform1.append('AlamatPria',data.AlamatPria);
-        // dataform1.append('AkunInstagramPria',data.AkunInstagramWanita);        
-        // dataform1.append('NamalengkapPria',data.NamaLengkapWanita);
-        // dataform1.append('NamaPanggilanPria',data.NamaPanggilanWanita);
-        // dataform1.append('FotoPria',fotoWanita);
-        // dataform1.append('NamaAyahPria',data.NamaAyahWanita);
-        // dataform1.append('NamaIbuPria',data.NamaIbuWanita);
-        // dataform1.append('AlamatPria',data.AlamatWanita);
-        // dataform1.append('AkunInstagramPria',data.AkunInstagramWanita);
+        const formData = new FormData();
+        formData.append('NamalengkapPria',data.NamaLengkapPria);
+        formData.append('NamaPanggilanPria',data.NamaPanggilanPria);
+        formData.append('FotoPria',fotoPria);
+        formData.append('NamaAyahPria',data.NamaAyahPria);
+        formData.append('NamaIbuPria',data.NamaIbuPria);
+        formData.append('AlamatPria',data.AlamatPria);
+        formData.append('AkunInstagramPria',data.AkunInstagramPria);
+        formData.append('NamalengkapWanita',data.NamaLengkapWanita);
+        formData.append('NamaPanggilanWanita',data.NamaPanggilanWanita);
+        formData.append('FotoWanita',fotoWanita);
+        formData.append('NamaAyahWanita',data.NamaAyahWanita);
+        formData.append('NamaIbuWanita',data.NamaIbuWanita);
+        formData.append('AlamatWanita',data.AlamatWanita);
+        formData.append('AkunInstagramWanita',data.AkunInstagramWanita); 
+        
+        if(isInsert === false){
+            axios.post('http://127.0.0.1:8000/api/pasangan',formData,{
+                headers:{
+                    'content-type' : 'multipart/form-data'
+                }
+            }).then(res => {
+                console.log(res)
+                if(res){
+                    dispatch({type:'UPDATE_ISINSERT',payload:true});
+                    Swal.fire(
+                        'Good job!',
+                        'Insert Data Successfuly',
+                        'success'
+                    )
+                    
+                }
+            })
+            .catch(err => {
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'This Server Error!',
+                   
+                })
+            })
+        }else{
+            axios.post(`http://127.0.0.1:8000/api/pasangan/1`,formData,{
+                headers:{
+                    'content-type' : 'multipart/form-data'
+                }
+            }).then(res => {
+                console.log(res)
+                if(res){
+                    dispatch({type:'UPDATE_ISINSERT',payload:true});
+                    Swal.fire(
+                        'Good job!',
+                        'Update Data Successfuly',
+                        'success'
+                    )
+                    
+                }
+            })
+            .catch(err => {
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'This Server Error!',
+                   
+                })
+            })
+        }
 
-        // const array = Object.entries(data)
-        // const dataForm = Object.fromEntries(array);
-        // console.log('data baru :',dataForm);
-            const formData = new FormData();
-            formData.append('NamalengkapPria',data.NamaLengkapPria);
-            formData.append('NamaPanggilanPria',data.NamaPanggilanPria);
-            formData.append('FotoPria',fotoPria);
-            formData.append('NamaAyahPria',data.NamaAyahPria);
-            formData.append('NamaIbuPria',data.NamaIbuPria);
-            formData.append('AlamatPria',data.AlamatPria);
-            formData.append('AkunInstagramPria',data.AkunInstagramPria); 
-            formData.append('NamalengkapWanita',data.NamaLengkapWanita);
-            formData.append('NamaPanggilanWanita',data.NamaPanggilanWanita);
-            formData.append('FotoWanita',fotoWanita);
-            formData.append('NamaAyahWanita',data.NamaAyahWanita);
-            formData.append('NamaIbuWanita',data.NamaIbuWanita);
-            formData.append('AlamatWanita',data.AlamatWanita);
-            formData.append('AkunInstagramWanita',data.AkunInstagramWanita); 
             
-                axios.post('http://127.0.0.1:8000/api/pasangan',formData,{
-                    headers:{
-                        'content-type' : 'multipart/form-data'
-                    }
-                }).then(res => {
-                    console.log('post success', res);
-                })
-                .catch(err => {
-                    console.log('err : ',err)
-                })
         
     }
 
-
-
-
+    useEffect(()=>{
+        getDataPasangan();
+        console.log(isInsert);
+    },[])
 
 
     // Toogle Sidebar
     const dispatch = useDispatch();
 
-    const {toogle} = useSelector(state => state.globalReducer);
+    const {toogle,isInsert} = useSelector(state => state.globalReducer);
 
     function toogleSidebar(){
         dispatch({type:'UPDATE_TOOGLE'})
@@ -161,7 +230,15 @@ function Pasangan(props) {
                                         <div class="basic-form">
                                             <form>
                                                 <div class="profile-photo photo-section mb-3">
-                                                    <img src={imgPreviewPria ? imgPreviewPria : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                    {dataImgPreviewPria ? 
+                                                        imgPreviewPria ? 
+                                                        <img src={imgPreviewPria ? imgPreviewPria : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                        :
+                                                        <img src={dataImgPreviewPria ? `http://127.0.0.1:8000/${dataImgPreviewPria}` : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                        :
+                                                        <img src={imgPreviewPria ? imgPreviewPria : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                    }
+                                                
                                                 </div>
                                                 <div class="form-row"> 	
                                                     <div class="input-group">
@@ -182,6 +259,7 @@ function Pasangan(props) {
                                                             class="form-control" 
                                                             placeholder="Nama Lengkap" 
                                                             autoComplete="off"
+                                                                                
                                                             {...register('NamaLengkapPria', {
                                                                 required: "nama lengkap tidak boleh kosong",
                                                                 minLength: {
@@ -304,7 +382,14 @@ function Pasangan(props) {
                                         <div class="basic-form">
                                             <form>
                                                 <div class="profile-photo photo-section mb-3">
-                                                    <img src={imgPreviewWanita ? imgPreviewWanita : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                {dataImgPreviewWanita ? 
+                                                        imgPreviewWanita ? 
+                                                        <img src={imgPreviewWanita ? imgPreviewWanita : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                        :
+                                                        <img src={dataImgPreviewWanita ? `http://127.0.0.1:8000/${dataImgPreviewWanita}` : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                        :
+                                                        <img src={imgPreviewWanita ? imgPreviewWanita : avatar} class="img-fluid rounded-circle d-flex m-auto" width="270" alt="" />
+                                                    }   
                                                 </div>
                                                 <div class="form-row"> 	
                                                     <div class="input-group">
